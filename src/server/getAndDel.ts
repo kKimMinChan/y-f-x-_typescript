@@ -18,4 +18,16 @@ export const get = (path: string, jwt?: string | null) => {
   })
 }
 
-export const del = (path: string) => fetch(getServerUrl(path), {method: 'DELETE'})
+export const del = (path: string, jwt?: string | null) => {
+  const headers: {
+    'Content-Type': string
+    Authorization?: string
+  } = {
+    'Content-Type': 'application/json'
+  }
+
+  if (jwt) {
+    headers.Authorization = `Bearer ${jwt}`
+  }
+  return fetch(getServerUrl(path), {method: 'DELETE', headers: headers})
+}

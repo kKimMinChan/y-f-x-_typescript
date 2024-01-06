@@ -5,7 +5,7 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom'
 const BoardItem = () => {
   const param = useParams()
   const navigate = useNavigate()
-  const {getBoard, board} = useBoard()
+  const {getBoard, board, delBoard} = useBoard()
   const location = useLocation()
   const category = `/${location.pathname.split('/')[1]}`
 
@@ -48,6 +48,22 @@ const BoardItem = () => {
       ))
     : []
 
+  const onDelete = () => {
+    // 사용자에게 삭제를 확인
+    if (param.boardId) {
+      // 사용자에게 삭제를 확인
+      if (window.confirm('게시물을 삭제하시겠습니까?')) {
+        // 'delBoard' 함수를 호출하여 게시물 삭제
+        delBoard(param.boardId, () => {
+          // 삭제 후 수행할 작업, 예를 들어 목록 페이지로 이동
+          navigate(category)
+        })
+      }
+    } else {
+      console.error('게시물 ID가 없습니다.')
+    }
+  }
+
   return (
     <div className="flex flex-col items-center ">
       <div className="flex justify-between w-4/6 pt-8 pb-4 border-b-2 border-primary">
@@ -55,8 +71,10 @@ const BoardItem = () => {
         <div className="mt-4">
           {board.writer === localStorage.getItem('nickname') && (
             <>
-              <button className="mr-2 btn btn-sm btn-primary">수정</button>
-              <button className="btn btn-sm btn-secondary">삭제</button>
+              {/* <button className="mr-2 btn btn-sm btn-primary">수정</button> */}
+              <button onClick={onDelete} className="btn btn-sm btn-secondary">
+                삭제
+              </button>
             </>
           )}
         </div>

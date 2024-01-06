@@ -7,7 +7,7 @@ import {
   useState
 } from 'react'
 import {useAuth} from './AuthContext'
-import {get, postFormData} from '../server'
+import {del, get, postFormData} from '../server'
 type Callback = () => void
 
 type Post = {
@@ -206,9 +206,15 @@ export const BoardProvider: FC<PropsWithChildren<BoardProviderProps>> = ({childr
     [setQuestionData, setJwt, jwt]
   )
 
-  const delBoard = useCallback((boardId: string, callback?: Callback) => {
-    // const
-  }, [])
+  const delBoard = useCallback(
+    (boardId: string, callback?: Callback) => {
+      return del(`/api/v1/member/board/${boardId}`, jwt)
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .finally(() => callback?.())
+    },
+    [jwt]
+  )
 
   const value = {
     createPost,

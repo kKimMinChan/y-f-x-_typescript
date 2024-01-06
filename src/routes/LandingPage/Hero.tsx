@@ -18,7 +18,7 @@ const Hero = () => {
               <br /> 딥러닝 기반의 f(x) 프로그램입니다.
             </p>
 
-            <div className="flex mt-4">
+            {/* <div className="flex mt-4">
               <Link to="/board">
                 <Button className="mr-4 font-bold border-white btn-outline">
                   go to Board
@@ -29,7 +29,7 @@ const Hero = () => {
                   go to Board
                 </Button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </Div>
       </Div>
