@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {useBoard} from '../../contexts'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
 
