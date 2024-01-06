@@ -1,15 +1,8 @@
-import React, {ChangeEvent, FC, FormEvent, useCallback, useState} from 'react'
+import React, {ChangeEvent, FormEvent, useCallback} from 'react'
 import {useBoard} from '../../contexts'
 
 const Question = () => {
-  const {
-    getQuestion,
-    setQuadraticData,
-    questionInput,
-    setQuestionInput,
-    setClickSecondary
-  } = useBoard()
-  // const [questionInput, setQuestionInput] = useState<string>('')
+  const {getQuestion, setQuadraticData, questionInput, setQuestionInput} = useBoard()
   const onChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setQuestionInput(e.target.value)

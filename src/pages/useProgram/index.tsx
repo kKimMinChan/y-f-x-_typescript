@@ -1,6 +1,4 @@
-import {useBoard} from '../../contexts'
 import Classification from './Classification'
-import ProgramData from './ProgramData'
 import Question from './Question'
 
 const UseProgram = () => {

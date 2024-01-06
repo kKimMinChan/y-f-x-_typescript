@@ -126,17 +126,6 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({children
 
   const login = useCallback((loginId: string, password: string, callback?: Callback) => {
     const user = {loginId, password}
-    // post('/api/v1/sign-in', user)
-    //   .then(res => res.json())
-    //   .then((result: {ok: boolean; errorMessage?: string}) => {
-    //     if (result.ok) {
-    //       setLoggedUser(notUsed => ({loginId, password}))
-    //       callback && callback()
-    //     } else {
-    //       setErrorMessage(result.errorMessage ?? '')
-    //     }
-    //   })
-    //   .catch((e: Error) => setErrorMessage(e.message ?? ''))
     U.readStringP('jwt')
       .then(jwt => {
         setJwt(jwt ?? '')
@@ -149,7 +138,7 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({children
           data: {accessToken?: string; nickname: string}
           message?: string
         }) => {
-          const {code, data, message} = result
+          const {code, data} = result
           console.log(result, 'login')
           if (code === 1000) {
             setLoggedUser(notUsed => ({loginId, password}))

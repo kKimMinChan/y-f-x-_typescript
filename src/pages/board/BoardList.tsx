@@ -1,6 +1,4 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
-import * as D from '../../data'
-import {Avatar} from '../../components'
 import {useBoard} from '../../contexts'
 import {Link, useLocation, useNavigate} from 'react-router-dom'
 

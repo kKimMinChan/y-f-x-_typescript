@@ -1,4 +1,4 @@
-import {ChangeEvent, useCallback, useEffect, useState} from 'react'
+import {ChangeEvent, useCallback, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {useAuth} from '../../contexts'
 

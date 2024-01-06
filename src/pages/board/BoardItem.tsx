@@ -1,10 +1,8 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useBoard} from '../../contexts'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
-import * as XLSX from 'xlsx'
 
 const BoardItem = () => {
-  const [data, setData] = useState<any[]>([])
   const param = useParams()
   const navigate = useNavigate()
   const {getBoard, board} = useBoard()
@@ -37,7 +35,6 @@ const BoardItem = () => {
   //   }
   // }, [board?.urlList, category])
 
-  //console.log(param.boardId)
   if (!board) {
     return <div>Loading...</div> // 혹은 다른 로딩 UI
   }

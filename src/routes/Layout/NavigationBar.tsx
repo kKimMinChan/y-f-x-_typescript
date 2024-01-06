@@ -1,10 +1,9 @@
-import React from 'react'
 import {Link} from '../../components'
 import {Link as RRLink} from 'react-router-dom'
 import {useAuth} from '../../contexts'
 
 const NavigationBar = () => {
-  const {loggedUser, jwt} = useAuth()
+  const {jwt} = useAuth()
 
   return (
     <div className="flex justify-around m-8 mb-8 bg-base-100">

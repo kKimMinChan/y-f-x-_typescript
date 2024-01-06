@@ -1,5 +1,4 @@
-import {FC, useEffect, useState} from 'react'
-import * as D from '../../data'
+import {useEffect, useState} from 'react'
 import {dataType, microImageInfos, secondMetalInfos, useBoard} from '../../contexts'
 import {Div} from '../../components'
 
