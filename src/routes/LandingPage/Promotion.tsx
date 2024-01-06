@@ -1,6 +1,5 @@
 import {useMemo, useState} from 'react'
 import * as D from '../../data'
-import CustomerComment from './CustomerComment'
 import {Avatar, Div} from '../../components'
 
 const Promotion = () => {

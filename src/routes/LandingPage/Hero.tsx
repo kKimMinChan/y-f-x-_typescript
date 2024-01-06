@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom'
 import {Div} from '../../components'
 import * as D from '../../data'
 import {Button} from '../../theme/daisyui'
-import {useMemo, useState} from 'react'
 const Hero = () => {
   return (
     <div className="flex items-center justify-center p-4">

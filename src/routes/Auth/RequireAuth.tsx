@@ -1,8 +1,6 @@
-import {FC, PropsWithChildren, useEffect} from 'react'
+import {useEffect} from 'react'
 import {useAuth} from '../../contexts'
 import {Outlet, useNavigate} from 'react-router-dom'
-
-type RequireAuthProps = {}
 
 const RequireAuth = () => {
   const {jwt} = useAuth()

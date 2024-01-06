@@ -1,7 +1,6 @@
 import {ChangeEvent, useCallback, useEffect, useState} from 'react'
-import * as U from '../../utils'
 import {Link, useNavigate} from 'react-router-dom'
-import {useAuth, useBoard} from '../../contexts'
+import {useAuth} from '../../contexts'
 
 type LoginFormType = Record<'loginId' | 'password', string>
 const initialFormState = {loginId: '', password: ''}
@@ -22,14 +21,6 @@ const Login = () => {
     console.log(loginId, password, 'loginAccount')
     login(loginId, password, () => navigate('/'))
   }, [loginId, password, navigate, login])
-
-  // useEffect(() => {
-  //   U.readObjectP<LoginFormType>('user')
-  //     .then(user => {
-  //       if (user) setForm(user)
-  //     })
-  //     .catch(e => {})
-  // }, [])
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 border border-gray-300 shadow-xl rounded-xl">

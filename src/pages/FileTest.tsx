@@ -32,3 +32,4 @@ const FileTest = () => {
 }
 
 export default FileTest
+// 상용순수AI: ISO 나머지: ASM 알루미늄:  합금강: AISI 티타늄: ASM 탄소강: AISI 구리: CDA

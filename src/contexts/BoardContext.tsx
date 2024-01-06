@@ -7,8 +7,7 @@ import {
   useState
 } from 'react'
 import {useAuth} from './AuthContext'
-import {get, post, postFormData} from '../server'
-import {post as postRequest} from '../server'
+import {get, postFormData} from '../server'
 type Callback = () => void
 
 type Post = {
@@ -210,12 +209,6 @@ export const BoardProvider: FC<PropsWithChildren<BoardProviderProps>> = ({childr
   const delBoard = useCallback((boardId: string, callback?: Callback) => {
     // const
   }, [])
-
-  //상태도 사진 미세조직 사진
-  // 1차 분류 합금강 엑셀 파일의 특징 설명 부분이 오른쪽 위에 들어가면 됨.
-  // 1차 2번쨰 특징란 합금분류 이미지랑 밑에 텍스트
-  // 1차에서는 왼쪽 사용 안함
-  // 표준 규격명 2번째 시트 이름 aisi
 
   const value = {
     createPost,

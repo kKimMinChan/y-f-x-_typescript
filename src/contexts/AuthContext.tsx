@@ -10,7 +10,6 @@ import {
   useEffect,
   useState
 } from 'react'
-import {useBoard} from './BoardContext'
 
 export type LoggedUser = {loginId: string; password: string}
 type Callback = () => void
@@ -170,21 +169,6 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({children
         }
       )
       .catch((e: Error) => setErrorMessage(e.message ?? ''))
-    // U.readStringP('jwt')
-    //   .then(jwt => {
-    //     setJwt(jwt ?? '')
-    //     return post('/api/v1/sign-in', user, jwt)
-    //   })
-    //   .then(res => res.json())
-    //   .then((result: {ok: boolean; errorMessage?: string}) => {
-    //     if (result.ok) {
-    //       setLoggedUser(notUsed => ({loginId, password}))
-    //       callback && callback()
-    //     } else {
-    //       setErrorMessage(result.errorMessage ?? '')
-    //     }
-    //   })
-    //   .catch((e: Error) => setErrorMessage(e.message ?? ''))
   }, [])
 
   const logout = useCallback((callback?: Callback) => {
