@@ -128,13 +128,15 @@ const Classification = () => {
             <div className="w-5/6 overflow-auto text-5xl font-bold text-center rounded-3xl h-350">
               {microImages}
             </div>
-            <div className="w-5/6 p-4 mb-8 overflow-auto font-bold text-center border-2 rounded-3xl text-start">
-              <div>{microImageData?.imageTitle}</div>
-              <div>
-                <br />
-                {microImageData?.imageCharacteristic}
+            {microImageData && (
+              <div className="w-5/6 p-4 mb-8 overflow-auto font-bold text-center border-2 rounded-3xl text-start">
+                <div>{microImageData?.imageTitle}</div>
+                <div>
+                  <br />
+                  {microImageData?.imageCharacteristic}
+                </div>
               </div>
-            </div>
+            )}
             <Div
               style={{
                 backgroundImage: `url(${clickSecondary?.conditionImageUrls[0]})`,

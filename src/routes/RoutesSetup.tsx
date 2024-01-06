@@ -1,8 +1,6 @@
 import React from 'react'
 import {Route, Routes} from 'react-router-dom'
 import NoMatch from './NoMatch'
-import Home from './Home'
-import Card from './Card'
 import Layout from './Layout'
 import LandingPage from './LandingPage'
 import SignUp from './Auth/SignUp'

@@ -1,20 +1,15 @@
-import {Provider as ReduxProvider} from 'react-redux'
-import {useStore} from './store/useStore'
 import {BrowserRouter} from 'react-router-dom'
 import RoutesSetup from './routes/RoutesSetup'
 import {AuthProvider, BoardProvider} from './contexts'
 function App() {
-  const store = useStore()
   return (
-    <ReduxProvider store={store}>
-      <BrowserRouter>
-        <AuthProvider>
-          <BoardProvider>
-            <RoutesSetup />
-          </BoardProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </ReduxProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <BoardProvider>
+          <RoutesSetup />
+        </BoardProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 
