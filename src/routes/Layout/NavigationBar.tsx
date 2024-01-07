@@ -32,7 +32,7 @@ const NavigationBar = () => {
           오류데이터 신고
         </Link>
         <Link to="/news" className="ml-4 mr-4">
-          f(x) new
+          f(x) news
         </Link>
       </div>
       <div className="flex items-center p-2">
