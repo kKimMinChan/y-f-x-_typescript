@@ -1,7 +1,5 @@
-import {Link} from 'react-router-dom'
 import {Div} from '../../components'
 import * as D from '../../data'
-import {Button} from '../../theme/daisyui'
 const Hero = () => {
   return (
     <div className="flex items-center justify-center p-4">
@@ -17,19 +15,6 @@ const Hero = () => {
               <br /> 금속재료에 대한 모든 데이터를 담아가고 있는
               <br /> 딥러닝 기반의 f(x) 프로그램입니다.
             </p>
-
-            {/* <div className="flex mt-4">
-              <Link to="/board">
-                <Button className="mr-4 font-bold border-white btn-outline">
-                  go to Board
-                </Button>
-              </Link>
-              <Link to="/board">
-                <Button className="font-bold border-white btn-outline">
-                  go to Board
-                </Button>
-              </Link>
-            </div> */}
           </div>
         </Div>
       </Div>
