@@ -31,7 +31,7 @@ export type dataType = {
 
 export type secondMetalInfos = {
   conditionImageUrls: string[]
-  mechaExcelUrls: string[]
+  mechaExcelUrls: string
   metalCharacteristic: string
   metalName: string
   microImageInfos: microImageInfos[]

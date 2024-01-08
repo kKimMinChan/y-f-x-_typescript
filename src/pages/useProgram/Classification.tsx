@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {dataType, microImageInfos, secondMetalInfos, useBoard} from '../../contexts'
 import {Div} from '../../components'
+import * as XLSX from 'xlsx'
 
 type StandardNameType = {
   [key: string]: {
@@ -54,6 +55,7 @@ const Classification = () => {
   } = useBoard()
   const [isQuadratic, setIsQuadratic] = useState<Boolean>(false)
   const [microImageData, setMicroImageData] = useState<microImageInfos | null>(null)
+  const [xlsxData, setXlsxData] = useState<any | null>(null)
   //const [quadraticData, setQuadraticData] = useState<dataType | null>(null)
 
   const currentQuestionData = questionData
@@ -79,7 +81,7 @@ const Classification = () => {
   const quadraticClassifications = currentQuadraticData.map((data, index) => (
     <div
       key={index}
-      onClick={() => onSelectSecondary(data)}
+      onClick={() => onSelectSecondary(data, data.mechaExcelUrls)}
       className={`flex-shrink-0 bg-white w-72 h-52 rounded-3xl ${
         index === 0 ? '' : 'ml-4'
       } flex justify-center items-center font-bold text-3xl cursor-pointer`}>
@@ -126,9 +128,23 @@ const Classification = () => {
     setIsQuadratic(!isQuadratic)
   }
 
-  const onSelectSecondary = (data: secondMetalInfos) => {
+  const onSelectSecondary = (data: secondMetalInfos, xlsxUrl: string) => {
     setClickSecondary(data)
+    fetch(xlsxUrl)
+      .then(response => response.arrayBuffer())
+      .then(buffer => {
+        // Excel 파일을 읽고 파싱합니다.
+        const workbook = XLSX.read(buffer, {type: 'buffer'})
+        // 첫 번째 시트의 이름을 가져옵니다.
+        const sheetName = workbook.SheetNames[0]
+        // 첫 번째 시트의 내용을 JSON으로 변환합니다.
+        const sheet = workbook.Sheets[sheetName]
+        const data = XLSX.utils.sheet_to_json(sheet)
+        setXlsxData(data)
+      })
+      .catch(error => console.error('Error reading excel file:', error))
   }
+
   const onSelectMicroImage = (data: microImageInfos) => {
     setMicroImageData(data)
   }
@@ -148,7 +164,9 @@ const Classification = () => {
   ) => {
     if (metalName && subMetalName) {
       const category = standardName[metalName]
+      console.log(category, standardName[metalName], '1')
       if (category && subMetalName in category) {
+        console.log(category[subMetalName], subMetalName, '2')
         return category[subMetalName]
       }
     }
@@ -213,8 +231,12 @@ const Classification = () => {
               : quadraticData?.metalCharacteristic}
           </div>
           <div className="flex flex-col items-center p-4 mt-8 overflow-auto font-bold text-center border-2 text-1xl rounded-3xl h-600">
-            {firstImages}
-            <div>{quadraticData?.metalClassCharacteristic}</div>
+            {xlsxData ? '' : firstImages}
+            {xlsxData ? (
+              <pre>{JSON.stringify(xlsxData, null, 2)}</pre>
+            ) : (
+              <div>{quadraticData?.metalClassCharacteristic}</div>
+            )}
           </div>
         </div>
       </div>
