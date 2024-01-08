@@ -145,6 +145,8 @@ const Classification = () => {
       .catch(error => console.error('Error reading excel file:', error))
   }
 
+  console.log(xlsxData, 'xlsxData')
+
   const onSelectMicroImage = (data: microImageInfos) => {
     setMicroImageData(data)
   }
@@ -162,6 +164,7 @@ const Classification = () => {
     metalName: string | undefined,
     subMetalName: string | undefined
   ) => {
+    console.log(metalName, subMetalName, 'getStandardname')
     if (metalName && subMetalName) {
       const category = standardName[metalName]
       console.log(category, standardName[metalName], '1')
