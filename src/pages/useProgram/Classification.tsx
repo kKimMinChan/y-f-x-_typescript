@@ -203,17 +203,17 @@ const Classification = () => {
     ))
   }
 
-  const printTable = () => {
-    const excelTable = document.getElementById('excel-table')
-    if (!excelTable) return // excelTable이 null이면 함수를 종료합니다.
+  // const printTable = () => {
+  //   const excelTable = document.getElementById('excel-table')
+  //   if (!excelTable) return // excelTable이 null이면 함수를 종료합니다.
 
-    const printContents = excelTable.innerHTML
-    const originalContents = document.body.innerHTML
+  //   const printContents = excelTable.innerHTML
+  //   const originalContents = document.body.innerHTML
 
-    document.body.innerHTML = printContents
-    window.print()
-    document.body.innerHTML = originalContents
-  }
+  //   document.body.innerHTML = printContents
+  //   window.print()
+  //   document.body.innerHTML = originalContents
+  // }
 
   return (
     <>
@@ -235,9 +235,14 @@ const Classification = () => {
             <button className="mr-4 btn btn-primary">
               {getStandardName(quadraticData?.metalName, clickSecondary?.metalName)}
             </button>
-            <button className="btn btn-primary" onClick={printTable}>
-              인쇄
-            </button>
+            {xlsxData && (
+              <a
+                href={clickSecondary?.mechaExcelUrls}
+                download
+                className="btn btn-primary">
+                엑셀 파일 다운로드
+              </a>
+            )}
           </div>
           <div className="flex flex-col items-center justify-center">
             <div className="w-5/6 p-4 mb-8 text-3xl font-bold text-center border-2 rounded-3xl">
