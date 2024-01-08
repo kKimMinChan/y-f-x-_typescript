@@ -2,6 +2,48 @@ import {useEffect, useState} from 'react'
 import {dataType, microImageInfos, secondMetalInfos, useBoard} from '../../contexts'
 import {Div} from '../../components'
 
+type StandardNameType = {
+  [key: string]: {
+    [subKey: string]: string
+  }
+}
+const standardName: StandardNameType = {
+  알루미늄: {
+    상용순수AI: 'ISO',
+    'AI-Mn': 'ASM',
+    'AI-Mg': 'ASM',
+    'AI-Mg-Si': 'ASM',
+    'AI-Cu': 'ASM'
+  },
+  합금강: {
+    Mn강: 'AISI',
+    '저 Cr 합금강': 'AISI',
+    Mo강: 'AISI',
+    'Cr-Mo강': 'AISI',
+    'Ni-Cr-Mo강': 'AISI'
+  },
+  탄소강: {
+    '저탄소강(0.1~0.25%)': 'AISI',
+    '중탄소강(0.25~0.55%)': 'AISI',
+    '고탄소강(0.55~1.00%)': 'AISI'
+  },
+  구리: {
+    'Cu-AI(AI청동)': 'CDA',
+    'Cu-Zn(황동)': 'CDA',
+    전해인성동: 'CDA',
+    'Cu-Sn(Sn청동)': 'CDA',
+    'Cu-Si(Si청동)': 'CDA',
+    'Cu-Be': 'CDA'
+  },
+  티타늄: {
+    상용순수Ti: 'ASM',
+    'α-Ti': 'ASM',
+    'nearα-Ti': 'ASM',
+    'α-β-Ti': 'ASM',
+    'β-Ti': 'ASM'
+  }
+}
+
 const Classification = () => {
   const {
     questionData,
@@ -100,6 +142,19 @@ const Classification = () => {
     if (quadraticData) setIsQuadratic(true)
   }, [quadraticData])
 
+  const getStandardName = (
+    metalName: string | undefined,
+    subMetalName: string | undefined
+  ) => {
+    if (metalName && subMetalName) {
+      const category = standardName[metalName]
+      if (category && subMetalName in category) {
+        return category[subMetalName]
+      }
+    }
+    return null
+  }
+
   return (
     <>
       <div className="flex items-center justify-center w-full bg-primary h-80 rounded-xl">
@@ -117,7 +172,9 @@ const Classification = () => {
       <div className="flex w-full mt-8">
         <div className="w-2/6 ">
           <div className="flex items-center mb-4 ml-12">
-            <button className="mr-4 btn btn-primary">표준규격명</button>
+            <button className="mr-4 btn btn-primary">
+              {getStandardName(quadraticData?.metalName, clickSecondary?.metalName)}
+            </button>
             <button className="btn btn-primary">인쇄</button>
           </div>
           <div className="flex flex-col items-center justify-center">
