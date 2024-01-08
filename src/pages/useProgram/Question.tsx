@@ -2,7 +2,8 @@ import React, {ChangeEvent, FormEvent, useCallback} from 'react'
 import {useBoard} from '../../contexts'
 
 const Question = () => {
-  const {getQuestion, setQuadraticData, questionInput, setQuestionInput} = useBoard()
+  const {getQuestion, setQuadraticData, questionInput, setQuestionInput, setXlsxData} =
+    useBoard()
   const onChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setQuestionInput(e.target.value)
@@ -15,10 +16,11 @@ const Question = () => {
       e.preventDefault()
       if (questionInput?.trim() !== '') {
         setQuadraticData(null)
+        setXlsxData?.(null)
         getQuestion(questionInput ?? '')
       }
     },
-    [questionInput, getQuestion, setQuadraticData]
+    [questionInput, getQuestion, setQuadraticData, setXlsxData]
   )
 
   return (

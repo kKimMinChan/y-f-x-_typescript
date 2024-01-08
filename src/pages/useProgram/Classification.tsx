@@ -10,11 +10,11 @@ type StandardNameType = {
 }
 const standardName: StandardNameType = {
   알루미늄: {
-    상용순수AI: 'ISO',
-    'AI-Mn': 'ASM',
-    'AI-Mg': 'ASM',
-    'AI-Mg-Si': 'ASM',
-    'AI-Cu': 'ASM'
+    상용순수Al: 'ISO',
+    'Al-Mn': 'ASM',
+    'Al-Mg': 'ASM',
+    'Al-Cu': 'ASM',
+    'Al-Mg-Si': 'ASM'
   },
   합금강: {
     Mn강: 'AISI',
@@ -29,7 +29,7 @@ const standardName: StandardNameType = {
     '고탄소강(0.55~1.00%)': 'AISI'
   },
   구리: {
-    'Cu-AI(AI청동)': 'CDA',
+    'Cu-Al(Al청동)': 'CDA',
     'Cu-Zn(황동)': 'CDA',
     전해인성동: 'CDA',
     'Cu-Sn(Sn청동)': 'CDA',
@@ -51,11 +51,13 @@ const Classification = () => {
     quadraticData,
     setQuadraticData,
     clickSecondary,
-    setClickSecondary
+    setClickSecondary,
+    xlsxData,
+    setXlsxData
   } = useBoard()
   const [isQuadratic, setIsQuadratic] = useState<Boolean>(false)
   const [microImageData, setMicroImageData] = useState<microImageInfos | null>(null)
-  const [xlsxData, setXlsxData] = useState<any | null>(null)
+  // const [xlsxData, setXlsxData] = useState<any | null>(null)
   //const [quadraticData, setQuadraticData] = useState<dataType | null>(null)
 
   const currentQuestionData = questionData
@@ -140,7 +142,7 @@ const Classification = () => {
         // 첫 번째 시트의 내용을 JSON으로 변환합니다.
         const sheet = workbook.Sheets[sheetName]
         const data = XLSX.utils.sheet_to_json(sheet)
-        setXlsxData(data)
+        setXlsxData?.(data)
       })
       .catch(error => console.error('Error reading excel file:', error))
   }
@@ -201,6 +203,18 @@ const Classification = () => {
     ))
   }
 
+  const printTable = () => {
+    const excelTable = document.getElementById('excel-table')
+    if (!excelTable) return // excelTable이 null이면 함수를 종료합니다.
+
+    const printContents = excelTable.innerHTML
+    const originalContents = document.body.innerHTML
+
+    document.body.innerHTML = printContents
+    window.print()
+    document.body.innerHTML = originalContents
+  }
+
   return (
     <>
       <div className="flex items-center justify-center w-full bg-primary h-80 rounded-xl">
@@ -221,7 +235,9 @@ const Classification = () => {
             <button className="mr-4 btn btn-primary">
               {getStandardName(quadraticData?.metalName, clickSecondary?.metalName)}
             </button>
-            <button className="btn btn-primary">인쇄</button>
+            <button className="btn btn-primary" onClick={printTable}>
+              인쇄
+            </button>
           </div>
           <div className="flex flex-col items-center justify-center">
             <div className="w-5/6 p-4 mb-8 text-3xl font-bold text-center border-2 rounded-3xl">
@@ -261,7 +277,7 @@ const Classification = () => {
           <div className="flex flex-col items-center p-4 mt-8 overflow-auto font-bold text-center border-2 text-1xl rounded-3xl h-600">
             {xlsxData ? '' : firstImages}
             {xlsxData ? (
-              <table>
+              <table id="excel-table">
                 <thead>{createTableHeader(xlsxData)}</thead>
                 <tbody>{createTableBody(xlsxData)}</tbody>
               </table>

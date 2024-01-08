@@ -57,6 +57,8 @@ type ContextType = {
   quadraticData?: dataType | null
   questionInput?: string | ''
   clickSecondary?: secondMetalInfos | null
+  xlsxData?: any | null
+  setXlsxData?: (data: any | null) => void
   setQuadraticData: (data: dataType | null) => void
   setQuestionInput: (data: string) => void
   setClickSecondary: (data: secondMetalInfos | null) => void
@@ -87,7 +89,8 @@ export const BoardContext = createContext<ContextType>({
   setQuadraticData: (data: dataType | null) => {},
   setQuestionInput(data) {},
   delBoard(boardId, callback) {},
-  setClickSecondary(data) {}
+  setClickSecondary(data) {},
+  setXlsxData(data) {}
 })
 
 type BoardProviderProps = {}
@@ -100,6 +103,7 @@ export const BoardProvider: FC<PropsWithChildren<BoardProviderProps>> = ({childr
   const [quadraticData, setQuadraticData] = useState<dataType | null>(null)
   const [questionInput, setQuestionInput] = useState<string | ''>('')
   const [clickSecondary, setClickSecondary] = useState<secondMetalInfos | null>(null)
+  const [xlsxData, setXlsxData] = useState<any | null>(null)
 
   const {setJwt} = useAuth()
   const createPost = useCallback(
@@ -230,7 +234,9 @@ export const BoardProvider: FC<PropsWithChildren<BoardProviderProps>> = ({childr
     setQuestionInput,
     delBoard,
     clickSecondary,
-    setClickSecondary
+    setClickSecondary,
+    xlsxData,
+    setXlsxData
   }
 
   return <BoardContext.Provider value={value}>{children}</BoardContext.Provider>
