@@ -77,6 +77,13 @@ const BoardList = () => {
     ))
   }, [totalPages, currentPage])
 
+  const userString = localStorage.getItem('user')
+  if (userString) {
+    console.log(JSON.parse(userString).loginId, 'user')
+  } else {
+    console.log('No user data found in localStorage')
+  }
+
   return (
     <div>
       <div className="p-4 mt-4 overflow-x-auto">
@@ -88,11 +95,27 @@ const BoardList = () => {
         </table>
         <div className="flex justify-center mt-8">{pagination}</div>
         <div className="flex justify-end">
-          {path !== 'data_list' && (
+          {path !== 'data_list' && path !== 'update_information' && path !== 'news' && (
             <Link to={`/write/${path}`}>
               <button className="font-bold btn btn-primary btn-sm">글쓰기</button>
             </Link>
           )}
+          {path === 'news' && JSON.parse(userString ?? '').loginId === 'dfmj2' && (
+            <Link to={`/write/${path}`}>
+              <button className="font-bold btn btn-primary btn-sm">글쓰기</button>
+            </Link>
+          )}
+          {path === 'data_list' && JSON.parse(userString ?? '').loginId === 'dfmj2' && (
+            <Link to={`/write/${path}`}>
+              <button className="font-bold btn btn-primary btn-sm">글쓰기</button>
+            </Link>
+          )}
+          {path === 'update_information' &&
+            JSON.parse(userString ?? '').loginId === 'dfmj2' && (
+              <Link to={`/write/${path}`}>
+                <button className="font-bold btn btn-primary btn-sm">글쓰기</button>
+              </Link>
+            )}
         </div>
       </div>
     </div>

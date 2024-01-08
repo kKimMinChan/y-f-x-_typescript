@@ -8,6 +8,19 @@ type StandardNameType = {
     [subKey: string]: string
   }
 }
+
+const firstXlsx: {[key: string]: string} = {
+  구리: 'https://tmibucket.s3.ap-northeast-2.amazonaws.com/firstmetalexcel/1.+%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5(Cu).xlsx',
+  알루미늄:
+    'https://tmibucket.s3.ap-northeast-2.amazonaws.com/firstmetalexcel/1.+%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%85%E1%85%AE%E1%84%86%E1%85%B5%E1%84%82%E1%85%B2%E1%86%B7.xlsx',
+  탄소강:
+    'https://tmibucket.s3.ap-northeast-2.amazonaws.com/firstmetalexcel/1.+%E1%84%90%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A9%E1%84%80%E1%85%A1%E1%86%BC(Fe).xlsx',
+  티타늄:
+    'https://tmibucket.s3.ap-northeast-2.amazonaws.com/firstmetalexcel/1.+%E1%84%90%E1%85%B5%E1%84%90%E1%85%A1%E1%84%82%E1%85%B2%E1%86%B7(Ti).xlsx',
+  합금강:
+    'https://tmibucket.s3.ap-northeast-2.amazonaws.com/firstmetalexcel/1.+%E1%84%92%E1%85%A1%E1%86%B8%E1%84%80%E1%85%B3%E1%86%B7%E1%84%80%E1%85%A1%E1%86%BC(Fe%2B%40).xlsx'
+}
+
 const standardName: StandardNameType = {
   알루미늄: {
     상용순수Al: 'ISO',
@@ -53,10 +66,12 @@ const Classification = () => {
     clickSecondary,
     setClickSecondary,
     xlsxData,
-    setXlsxData
+    setXlsxData,
+    microImageData,
+    setMicroImageData
   } = useBoard()
   const [isQuadratic, setIsQuadratic] = useState<Boolean>(false)
-  const [microImageData, setMicroImageData] = useState<microImageInfos | null>(null)
+  // const [microImageData, setMicroImageData] = useState<microImageInfos | null>(null)
   // const [xlsxData, setXlsxData] = useState<any | null>(null)
   //const [quadraticData, setQuadraticData] = useState<dataType | null>(null)
 
@@ -132,6 +147,7 @@ const Classification = () => {
 
   const onSelectSecondary = (data: secondMetalInfos, xlsxUrl: string) => {
     setClickSecondary(data)
+    setMicroImageData?.(null)
     fetch(xlsxUrl)
       .then(response => response.arrayBuffer())
       .then(buffer => {
@@ -149,8 +165,8 @@ const Classification = () => {
 
   console.log(xlsxData, 'xlsxData')
 
-  const onSelectMicroImage = (data: microImageInfos) => {
-    setMicroImageData(data)
+  const onSelectMicroImage = (data: microImageInfos | null) => {
+    setMicroImageData?.(data)
   }
   useEffect(() => {
     if (questionData) {
@@ -235,12 +251,19 @@ const Classification = () => {
             <button className="mr-4 btn btn-primary">
               {getStandardName(quadraticData?.metalName, clickSecondary?.metalName)}
             </button>
-            {xlsxData && (
+            {xlsxData ? (
               <a
                 href={clickSecondary?.mechaExcelUrls}
                 download
                 className="btn btn-primary">
                 엑셀 파일 다운로드
+              </a>
+            ) : (
+              <a
+                href={firstXlsx[quadraticData?.metalName ?? '']}
+                download
+                className="btn btn-primary">
+                {quadraticData?.metalName ? '엑셀 파일 다운로드' : ''}
               </a>
             )}
           </div>
