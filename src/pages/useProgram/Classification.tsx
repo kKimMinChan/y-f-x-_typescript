@@ -121,7 +121,7 @@ const Classification = () => {
       height="20rem"></Div>
   ))
 
-  console.log(clickSecondary, 'asdffds')
+  console.log(clickSecondary, 'clickSecondary')
 
   const onSelectFirst = (data: dataType) => {
     setQuadraticData(data)
@@ -152,7 +152,6 @@ const Classification = () => {
   }
   useEffect(() => {
     if (questionData) {
-      console.log('tlf')
       setIsQuadratic(false)
     }
   }, [questionData])
@@ -167,13 +166,39 @@ const Classification = () => {
     console.log(metalName, subMetalName, 'getStandardname')
     if (metalName && subMetalName) {
       const category = standardName[metalName]
-      console.log(category, standardName[metalName], '1')
+      console.log(category, standardName[metalName], '1', subMetalName)
       if (category && subMetalName in category) {
         console.log(category[subMetalName], subMetalName, '2')
         return category[subMetalName]
       }
     }
     return null
+  }
+
+  interface IExcelRow {
+    [key: string]: string | number // 이 인터페이스는 엑셀 행의 각 열이 키-값 쌍으로 구성되어 있다고 가정합니다.
+  }
+
+  const createTableHeader = (data: IExcelRow[]) => {
+    if (data.length > 0) {
+      return (
+        <tr>
+          {Object.keys(data[0]).map((key, index) => (
+            <th key={index}>{key}</th>
+          ))}
+        </tr>
+      )
+    }
+  }
+
+  const createTableBody = (data: IExcelRow[]) => {
+    return data.map((row, rowIndex) => (
+      <tr key={rowIndex}>
+        {Object.values(row).map((value, index) => (
+          <td key={index}>{value}</td>
+        ))}
+      </tr>
+    ))
   }
 
   return (
@@ -236,7 +261,10 @@ const Classification = () => {
           <div className="flex flex-col items-center p-4 mt-8 overflow-auto font-bold text-center border-2 text-1xl rounded-3xl h-600">
             {xlsxData ? '' : firstImages}
             {xlsxData ? (
-              <pre>{JSON.stringify(xlsxData, null, 2)}</pre>
+              <table>
+                <thead>{createTableHeader(xlsxData)}</thead>
+                <tbody>{createTableBody(xlsxData)}</tbody>
+              </table>
             ) : (
               <div>{quadraticData?.metalClassCharacteristic}</div>
             )}
